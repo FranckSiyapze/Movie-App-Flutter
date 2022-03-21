@@ -3,19 +3,44 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_app/controllers/main_page_data_controller.dart';
+import 'package:movie_app/models/main_page_data.dart';
 import 'package:movie_app/models/movie.dart';
 import 'package:movie_app/models/search_category.dart';
 import 'package:movie_app/widgets/movie_title.dart';
 
+final mainPageDataControllerProvider =
+    StateNotifierProvider<MainPageDataController>((ref) {
+  return MainPageDataController();
+});
+
+final _selectedMoviePosterURLProvider = StateProvider<String>((ref) {
+  final _movies = ref.watch(mainPageDataControllerProvider.state).movies;
+
+  return _movies.isNotEmpty
+      ? _movies[0].posterUrl()
+      : 'https://www.themoviedb.org/t/p/original/tbf1kfcOW2hTRj8dbE5jz2DfK3o.jpg';
+});
+
 class MainPage extends ConsumerWidget {
   late double _deviceHeight;
   late double _deviceWidth;
+
+  late MainPageDataController _mainPageDataController;
+  late MainPageData _mainPageData;
+  late var _selectedMoviePosterURL;
+
   late TextEditingController _searchTextFieldController;
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
+
+    _mainPageDataController = watch(mainPageDataControllerProvider);
+    _mainPageData = watch(mainPageDataControllerProvider.state);
+    _selectedMoviePosterURL = watch(_selectedMoviePosterURLProvider);
     _searchTextFieldController = TextEditingController();
+    _searchTextFieldController.text = _mainPageData.searchText;
     return _buildUI();
   }
 
@@ -38,28 +63,51 @@ class MainPage extends ConsumerWidget {
   }
 
   Widget _backgroundWidget() {
-    return Container(
-      height: _deviceHeight,
-      width: _deviceWidth,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        image: DecorationImage(
-          image: NetworkImage(
-              'http://ekladata.com/HRVFte-zB8uHYZ_YJxCgRKbS_2o.jpg'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 15.0,
-            sigmaY: 15.0,
+    if (_selectedMoviePosterURL.state != null) {
+      return Container(
+        height: _deviceHeight,
+        width: _deviceWidth,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          image: DecorationImage(
+            image: NetworkImage(_selectedMoviePosterURL.state),
+            fit: BoxFit.cover,
           ),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.2),
+        ),
+        child: BackdropFilter(
+            filter: ImageFilter.blur(
+              sigmaX: 15.0,
+              sigmaY: 15.0,
             ),
-          )),
-    );
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.2),
+              ),
+            )),
+      );
+    } else {
+      return Container(
+        height: _deviceHeight,
+        width: _deviceWidth,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          image: DecorationImage(
+            image: AssetImage('assets/images/gangster.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: BackdropFilter(
+            filter: ImageFilter.blur(
+              sigmaX: 15.0,
+              sigmaY: 15.0,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.2),
+              ),
+            )),
+      );
+    }
   }
 
   Widget _forgeroundWidgets() {
@@ -83,8 +131,8 @@ class MainPage extends ConsumerWidget {
   }
 
   Widget _movieListViewWidget() {
-    final List<Movie> _movies = [];
-    for (var i = 0; i < 10; i++) {
+    final List<Movie> _movies = _mainPageData.movies;
+    /* for (var i = 0; i < 10; i++) {
       _movies.add(
         Movie(
           name: 'The Gangster, The Cop, The Devil',
@@ -98,26 +146,42 @@ class MainPage extends ConsumerWidget {
           releaseDate: "2019-05-15",
         ),
       );
-    }
+    } */
     if (_movies.length != 0) {
-      return ListView.builder(
-        itemCount: _movies.length,
-        itemBuilder: (BuildContext _context, int i) {
-          return Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: _deviceHeight * 0.01,
-              horizontal: 0,
-            ),
-            child: GestureDetector(
-              onTap: () {},
-              child: MovieTitle(
-                movie: _movies[i],
-                height: _deviceHeight * 0.20,
-                width: _deviceWidth * 0.85,
-              ),
-            ),
-          );
+      return NotificationListener(
+        onNotification: (_onScroolNotification) {
+          if (_onScroolNotification is ScrollEndNotification) {
+            final before = _onScroolNotification.metrics.extentBefore;
+            final max = _onScroolNotification.metrics.maxScrollExtent;
+            if (before == max) {
+              _mainPageDataController.getMovies();
+              return true;
+            }
+            return false;
+          }
+          return false;
         },
+        child: ListView.builder(
+          itemCount: _movies.length,
+          itemBuilder: (BuildContext _context, int i) {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: _deviceHeight * 0.01,
+                horizontal: 0,
+              ),
+              child: GestureDetector(
+                onTap: () {
+                  _selectedMoviePosterURL.state = _movies[i].posterUrl();
+                },
+                child: MovieTitle(
+                  movie: _movies[i],
+                  height: _deviceHeight * 0.20,
+                  width: _deviceWidth * 0.85,
+                ),
+              ),
+            );
+          },
+        ),
       );
     } else {
       return Center(
@@ -154,7 +218,8 @@ class MainPage extends ConsumerWidget {
       height: _deviceHeight * 0.05,
       child: TextField(
         controller: _searchTextFieldController,
-        onSubmitted: (_input) {},
+        onSubmitted: (_input) =>
+            _mainPageDataController.updateTextSearch(_input),
         style: TextStyle(
           color: Colors.white,
         ),
@@ -179,7 +244,7 @@ class MainPage extends ConsumerWidget {
   Widget _categorySelectionWidget() {
     return DropdownButton(
       dropdownColor: Colors.black38,
-      value: SearchCategory.popular,
+      value: _mainPageData.searchCategory,
       icon: Icon(
         Icons.menu,
         color: Colors.white24,
@@ -188,7 +253,9 @@ class MainPage extends ConsumerWidget {
         height: 1,
         color: Colors.white24,
       ),
-      onChanged: (_value) {},
+      onChanged: (_value) => _value.toString().isNotEmpty
+          ? _mainPageDataController.updateSearchCategory(_value.toString())
+          : null,
       items: [
         DropdownMenuItem(
           child: Text(

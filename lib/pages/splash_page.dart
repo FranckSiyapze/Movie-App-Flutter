@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -60,15 +61,32 @@ class _SplashPageState extends State<SplashPage> {
       debugShowCheckedModeBanner: false,
       title: 'Movie App',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: Center(
-        child: Container(
-          height: 200,
-          width: 200,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.contain,
-              image: AssetImage('assets/images/logo.png'),
-            ),
+      home: Scaffold(
+        backgroundColor: Colors.white,
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text(
+                'Initialisation des paramétres',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              LinearProgressIndicator(
+                //value: controller.value,
+                color: Color(0xFFE50914),
+                backgroundColor: Colors.white,
+                semanticsLabel: 'Linear progress indicator',
+              ),
+            ],
           ),
         ),
       ),

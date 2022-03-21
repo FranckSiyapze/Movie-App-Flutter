@@ -75,7 +75,7 @@ class MovieTitle extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(0, height * 0.07, 0, 0),
             child: Text(
               movie.description,
-              maxLines: 9,
+              maxLines: 5,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: Colors.white70,
