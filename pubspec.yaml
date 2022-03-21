@@ -37,6 +37,7 @@ dependencies:
   flutter_riverpod: "0.13.1"
   dio: "3.0.10"
   get_it: "6.0.0"
+  cached_network_image: ^2.5.1
 
 dev_dependencies:
   flutter_test:

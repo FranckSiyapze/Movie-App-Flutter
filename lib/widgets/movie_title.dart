@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/models/movie.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MovieTitle extends StatelessWidget {
   final GetIt _getIt = GetIt.instance;
@@ -94,7 +95,7 @@ class MovieTitle extends StatelessWidget {
       width: width * 0.35,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage(_imageUrl),
+          image: CachedNetworkImageProvider(_imageUrl),
         ),
       ),
     );

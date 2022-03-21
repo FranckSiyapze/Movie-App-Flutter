@@ -5,6 +5,8 @@ INJECTED from C:\Users\Franck S\Movie-App-Flutter\android\app\src\main\AndroidMa
 INJECTED from C:\Users\Franck S\Movie-App-Flutter\android\app\src\main\AndroidManifest.xml:1:1-41:12
 INJECTED from C:\Users\Franck S\Movie-App-Flutter\android\app\src\main\AndroidManifest.xml:1:1-41:12
 MERGED from C:\Users\Franck S\Movie-App-Flutter\android\app\src\main\AndroidManifest.xml:1:1-41:12
+MERGED from [:sqflite] C:\Users\Franck S\Movie-App-Flutter\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:path_provider_android] C:\Users\Franck S\Movie-App-Flutter\build\path_provider_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Franck S\.gradle\caches\transforms-2\files-2.1\ba80674a1a5fdce2b1b29eea5683af77\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.0.0] C:\Users\Franck S\.gradle\caches\transforms-2\files-2.1\68865d38a53fb5c240061f062e474515\jetified-activity-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Franck S\.gradle\caches\transforms-2\files-2.1\2f70304b103eacfab05dbe55739e869f\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -93,6 +95,10 @@ uses-sdk
 INJECTED from C:\Users\Franck S\Movie-App-Flutter\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Franck S\Movie-App-Flutter\android\app\src\main\AndroidManifest.xml
 INJECTED from C:\Users\Franck S\Movie-App-Flutter\android\app\src\main\AndroidManifest.xml
+MERGED from [:sqflite] C:\Users\Franck S\Movie-App-Flutter\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] C:\Users\Franck S\Movie-App-Flutter\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_android] C:\Users\Franck S\Movie-App-Flutter\build\path_provider_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_android] C:\Users\Franck S\Movie-App-Flutter\build\path_provider_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Franck S\.gradle\caches\transforms-2\files-2.1\ba80674a1a5fdce2b1b29eea5683af77\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Franck S\.gradle\caches\transforms-2\files-2.1\ba80674a1a5fdce2b1b29eea5683af77\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.activity:activity:1.0.0] C:\Users\Franck S\.gradle\caches\transforms-2\files-2.1\68865d38a53fb5c240061f062e474515\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
