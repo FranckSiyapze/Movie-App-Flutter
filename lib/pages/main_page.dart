@@ -46,9 +46,13 @@ class MainPage extends ConsumerWidget {
   }
 
   Widget _buildUI() {
+    final List<Movie> _movies = _mainPageData.movies;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
+      /* appBar: AppBar(
+        title: Text("${_movies.length.toString()}"),
+      ), */
       body: Container(
         height: _deviceHeight,
         width: _deviceWidth,

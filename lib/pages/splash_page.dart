@@ -62,29 +62,21 @@ class _SplashPageState extends State<SplashPage> {
       title: 'Movie App',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
-        backgroundColor: Colors.white,
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
+        backgroundColor: Colors.black,
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text(
-                'Initialisation des paramétres',
-                style: TextStyle(
-                  fontSize: 25,
+            children: [
+              Container(
+                height:250,
+                width: 250,
+                decoration: const BoxDecoration(
                   color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
+                  image: DecorationImage(
+                    fit: BoxFit.contain,
+                    image: AssetImage('assets/images/758X.gif'),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              LinearProgressIndicator(
-                //value: controller.value,
-                color: Color(0xFFE50914),
-                backgroundColor: Colors.white,
-                semanticsLabel: 'Linear progress indicator',
               ),
             ],
           ),

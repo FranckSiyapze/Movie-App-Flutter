@@ -1,4 +1,4 @@
-#Mon Mar 21 14:01:41 WEST 2022
-base.0=C\:\\Users\\Franck S\\Movie-App-Flutter\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Wed Aug 03 17:46:48 WAT 2022
+base.0=C\:\\Users\\PC\\Desktop\\Movie-App-Flutter\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
